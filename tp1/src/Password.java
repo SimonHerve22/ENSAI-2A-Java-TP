@@ -1,6 +1,8 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,9 +106,9 @@ public class Password {
      */
     public static HashMap<String, Boolean> checkPasswordsList(ArrayList<String> passwords) {
 
-        // Code here
-
-        return null;
+        HashMap<String, Boolean> pwSolides = new HashMap<>();
+        passwords.forEach(pw -> pwSolides.put(pw, isStrongPassword(pw)));
+        return pwSolides;
     }
 
     /**
@@ -122,10 +124,33 @@ public class Password {
      * @return A randomly generated password that meets the security criteria.
      */
     public static String generatePassword(int nbCar) {
+        if (nbCar < 4) {
+            return "Problème";
+        }
+        List<String> lowercase = List.of("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+                "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+        List<String> uppercase = List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+                "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+        List<String> nombres = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+        List<String> caracSpe = List.of("&", "#", "{", "(", "[", "-", "|", "_", "$", "£");
 
-        // Code here
-
-        return null;
+        SecureRandom random = new SecureRandom();
+        ArrayList<String> password = new ArrayList<>();
+        password.add(lowercase.get(random.nextInt(25)));
+        password.add(uppercase.get(random.nextInt(25)));
+        password.add(nombres.get(random.nextInt(10)));
+        password.add(caracSpe.get(random.nextInt(10)));
+        for (int i = 4; i < nbCar; i++) {
+            switch (random.nextInt(3)) {
+                case 0 -> password.add(uppercase.get(random.nextInt(25)));
+                case 1 -> password.add(uppercase.get(random.nextInt(25)));
+                case 2 -> password.add(nombres.get(random.nextInt(10)));
+                case 3 -> password.add(caracSpe.get(random.nextInt(10)));
+                default -> System.out.println("Problème");
+            }
+        }
+        Collections.shuffle(password);
+        return password.toString();
     }
 
     public static void main(String[] args) {
