@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,18 +17,18 @@ public class Library {
     // Attributes
     // -------------------------------------------------------
     private String name;
-    private List<Book> books;
+    private List<Item> items;
 
     /**
      * Constructs a new Library
-     * @param name Nom de la librairie
-     * @param books Liste des livres de la librairie
+     * 
+     * @param name  Nom de la librairie
+     * @param items Liste des livres de la librairie
      */
-    public Library(String nom, List<Book> book) {
+    public Library(String nom) {
         this.name = nom;
-        this.books = book;
+        this.items = new ArrayList<>();
     }
-
 
     // -------------------------------------------------------
     // Methods
@@ -39,31 +40,30 @@ public class Library {
     public void printname() {
         System.out.println(this.name);
     }
-    
+
     /**
      * Ajouter un livre à la liste de livres
      */
-    public void addBook(Book livre) {
-        this.books.add(livre);
+    public void addItem(Item item) {
+        this.items.add(item);
     }
-    
+
     /**
      * Affiche tous les livres
      *
      * @return true if attribute2 is odd, false otherwise.
      */
-    public void isAttribute2Odd() {
-        Boolean trouve = false;
-        for (int i = 0; i < this.books.size(); i++) {
-            trouve = true;
-            Book livre = this.books.get(i);
-            livre.toString();
-        }
-        if (!trouve){
+    public String display() {
+        String chaine = "";
+        if (items.isEmpty()) {
             System.out.println("Il n'y a pas de livres");
+        } else {
+            for (Item b : this.items) {
+                chaine += items.toString();
+            }
         }
+        return chaine;
     }
-
 
     /**
      * Main method
@@ -102,11 +102,11 @@ public class Library {
                     if (author == null) {
                         author = new Author(authorName);
                         authors.put(authorName, author);
-                        //System.out.println(String.format("Create %s", author));
+                        // System.out.println(String.format("Create %s", author));
                     }
                     Book book = new Book(isbn, title, author, year, pageCount);
 
-                    this.addBook(book);
+                    this.addItem(book);
                 }
             }
         } catch (
