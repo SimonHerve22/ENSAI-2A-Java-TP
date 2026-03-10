@@ -1,8 +1,12 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+<<<<<<< HEAD
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
+=======
+import java.util.ArrayList;
+>>>>>>> dd8a231b0c3fe8d317f6cb28620f2bd9867f27de
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +45,7 @@ public class Password {
      * @return the 6-digit number that matches, or null if no match is found
      */
     public static String bruteForce6Digit(String targetHash) {
+<<<<<<< HEAD
         for (Integer i = 0; i < 1000000; i++) {
             String pw = String.format("%06d", i);
             String hash = hashPassword(pw);
@@ -48,6 +53,11 @@ public class Password {
                 return pw;
             }
         }
+=======
+
+        // Code here
+
+>>>>>>> dd8a231b0c3fe8d317f6cb28620f2bd9867f27de
         return null;
     }
 
@@ -67,6 +77,7 @@ public class Password {
      */
     public static boolean isStrongPassword(String password) {
 
+<<<<<<< HEAD
         if (password.length() < 12) {
             return false;
         } else {
@@ -94,6 +105,11 @@ public class Password {
                 return false;
             }
         }
+=======
+        // Code here
+
+        return false;
+>>>>>>> dd8a231b0c3fe8d317f6cb28620f2bd9867f27de
     }
 
     /**
@@ -106,9 +122,15 @@ public class Password {
      */
     public static HashMap<String, Boolean> checkPasswordsList(ArrayList<String> passwords) {
 
+<<<<<<< HEAD
         HashMap<String, Boolean> pwSolides = new HashMap<>();
         passwords.forEach(pw -> pwSolides.put(pw, isStrongPassword(pw)));
         return pwSolides;
+=======
+        // Code here
+
+        return null;
+>>>>>>> dd8a231b0c3fe8d317f6cb28620f2bd9867f27de
     }
 
     /**
@@ -124,6 +146,7 @@ public class Password {
      * @return A randomly generated password that meets the security criteria.
      */
     public static String generatePassword(int nbCar) {
+<<<<<<< HEAD
         if (nbCar < 4) {
             return "Problème";
         }
@@ -151,6 +174,12 @@ public class Password {
         }
         Collections.shuffle(password);
         return password.toString();
+=======
+
+        // Code here
+
+        return null;
+>>>>>>> dd8a231b0c3fe8d317f6cb28620f2bd9867f27de
     }
 
     public static void main(String[] args) {
