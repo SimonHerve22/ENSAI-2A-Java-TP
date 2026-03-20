@@ -1,16 +1,17 @@
 package fr.ensai.mediaplayer;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 /**
  * Represents a song with essential attributes.
  */
-public class Song {
-    private String singer;
-    private String title;
-    private int year;
-    private int duration;
+public class Song extends Media{
+    private Artist singer;
     private String lyrics;
-    private String author;
-    private String composer;
+    private Artist author;
+    private Artist composer;
+    private MusicalGenres[] styles;
 
     /**
      * Constructs a new Song object.
@@ -24,14 +25,13 @@ public class Song {
      * @param author   The author of the song.
      * @param composer The composer of the song.
      */
-    public Song(String title, String singer, int year, int duration, String lyrics, String author, String composer) {
-        this.title = title;
+    public Song(String title, Artist singer, int year, int duration, String lyrics, Artist author, Artist composer, MusicalGenres[] styles) {
+        super(title, duration, year);
         this.singer = singer;
-        this.year = year;
-        this.duration = duration;
         this.lyrics = lyrics;
         this.author = author;
         this.composer = composer;
+        this.styles = styles;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Song {
      */
     @Override
     public String toString() {
-        return String.format("Song %s by %s",this.title, this.singer);
+        return String.format("Song %s by %s %s",this.getTitle(), this.singer.getfirstName(), this.singer.getlastName());
     }
     
     /**
@@ -53,14 +53,29 @@ public class Song {
         if (o == null || this.getClass() != o.getClass())
             return false;
         Song otherSong = (Song) o;
-        return this.year == otherSong.year &&
-                Objects.equals(this.title, otherSong.title) &&
+        return this.getYear() == otherSong.getYear() &&
+                Objects.equals(this.getTitle(), otherSong.getTitle()) &&
                 Objects.equals(this.singer, otherSong.singer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.title, this.singer, this.year);
+        return Objects.hash(this.getTitle(), this.singer, this.getYear());
+    }
+    /**
+     * Prints each word of lyrics, like the code sings the music
+     */
+    public void play(){
+        String[] wordList = lyrics.split(" ");
+        for (String i : wordList){
+            System.out.println(i);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("Thread was interrupted");
+        }
+        }
     }
 
 }
